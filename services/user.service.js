@@ -40,6 +40,7 @@ const loginUser = (data, callback) => {
   let validationResult = [];
   User.findOne({$or: [{username: data.identifier}, {email: data.identifier}]}, (err, user) => {
     if(err) {
+      console.log(err)
       validationResult.push('unexpected error');
       return callback(validationResult);
     }
@@ -49,6 +50,7 @@ const loginUser = (data, callback) => {
     }
     user.comparePasswords(data.password, user.password, (err, isMatch) => {
       if(err) {
+        console.log(err)
         validationResult.push('unexpected error');
         return callback(validationResult);
       }
